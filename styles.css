@@ -1,1 +1,20 @@
 /*  your css code here. If applicable */
+#loading {
+  display: block;
+}
+
+#error {
+  color: red;
+}
+
+#output {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#output img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
