@@ -1,6 +1,8 @@
 
 const output = document.getElementById("output");
 const btn = document.getElementById("download-images-button");
+const loading = document.getElementById("loading");
+const error = document.getElementById("error");
 
 const images = [
   { url: "https://picsum.photos/id/237/200/300" },
@@ -23,20 +25,27 @@ function downloadImage(url) {
 }
 
 function downloadImages() {
-  output.innerHTML = "Loading...";
+  // Show loading spinner
+  loading.style.display = "block";
+
+  // Clear previous results and errors
+  output.innerHTML = "";
+  error.innerHTML = "";
 
   Promise.all(
     images.map(image => downloadImage(image.url))
   )
     .then(downloadedImages => {
-      output.innerHTML = "";
-
       downloadedImages.forEach(img => {
         output.appendChild(img);
       });
     })
-    .catch(error => {
-      output.innerHTML = error.message;
+    .catch(err => {
+      error.textContent = err.message;
+    })
+    .finally(() => {
+      // Hide loading spinner after success or failure
+      loading.style.display = "none";
     });
 }
 
